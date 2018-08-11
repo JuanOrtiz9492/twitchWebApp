@@ -1,9 +1,11 @@
 import React from 'react'
 import axios from 'axios'
+import {connect} from 'react-redux';
 import Navbar from '../uiComponents/navBar'
 import WalletInfo from '../uiComponents/WalletInfo'
 import MinerStats from '../uiComponents/MinerStats'
 import GeneralStats from './GeneralStats'
+import * as actions from '../actions/minerActions'
 
 class Demo extends React.Component{
 
@@ -18,34 +20,36 @@ class Demo extends React.Component{
             views:["mining","history","workers","payments"],
             currentView:"mining"
         }
-        this.updateBalance = this.updateBalance.bind(this);
-        this.updateHashRate = this.updateHashRate.bind(this);
         this.updateCurrentView = this.updateCurrentView.bind(this)
+        this.getWalletInfo = this.getWalletInfo.bind(this)
     }
-    componentDidMount(){
-        axios.get('https://api.nanopool.org/v1/eth/balance/'+this.state.walletDir).then((response)=>{
-            console.log(response)
-            this.updateBalance(response.data.data)
-            axios.get('https://api.nanopool.org/v1/eth/avghashrate/'+this.state.walletDir).then(
-                (response)=>{
-                    console.log("success",response.data.data.h1)
-                    this.updateHashRate(response.data.data.h1)
+    getWalletInfo(){
+        let details={
+
+            address:this.state.walletDir,
+            balance:0,
+            hashRate:0
+
+        }
+        axios.get('https://api.nanopool.org/v1/eth/balance/'+this.state.walletDir)
+            .then((response)=>{
+
+                details.balance=response.data.data
+                axios.get('https://api.nanopool.org/v1/eth/avghashrate/'+this.state.walletDir)
+                    .then((response)=>{
+                        
+                    details.hashRate=response.data.data.h1
+                    this.props.updateWalletInfo(details)
                 }
             )
         }).catch((e)=>{
             console.log("failed",e)
         })
     }
-
-    updateBalance(newBalance){
-        console.log("balance", newBalance)
-        this.setState({balance:newBalance})
+    componentDidMount(){
+        this.getWalletInfo()
     }
 
-    updateHashRate(newHashRate){
-        console.log("hashRate",newHashRate)
-        this.setState({hashRate:newHashRate})
-    }
     updateCurrentView(index) {
         this.setState((prevState)=>{
             return{   
@@ -54,6 +58,7 @@ class Demo extends React.Component{
         });
     }
     render(){
+        let walletDetails = this.props.walletDetails[0]
     return(
         <React.Fragment>
             <Navbar/>
@@ -61,7 +66,7 @@ class Demo extends React.Component{
                         disabled={this.state.disabled} 
                         walletDir={this.state.walletDir} 
             />
-            <MinerStats balance={this.state.balance} hashRate={this.state.hashRate}/>
+            <MinerStats balance={walletDetails.accountBalance} hashRate={walletDetails.averageHashRate}/>
             <GeneralStats 
                 updateCurrentView={this.updateCurrentView}
                 typeOfView={this.state.currentView} 
@@ -72,4 +77,11 @@ class Demo extends React.Component{
     }
 } 
 
-export default Demo
+const mapStateToProps = (state)=>{
+    return{
+        walletDetails:state.walletDetails,
+    }
+}
+
+
+export default connect(mapStateToProps,actions)(Demo)
