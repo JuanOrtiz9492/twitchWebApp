@@ -10,16 +10,14 @@ class GeneralStats extends React.Component{
     newView(index){
         this.props.updateCurrentView(index)
     }
-
     render(){
         return(
             <React.Fragment>
-            <button onClick={()=>this.newView(0)}>mining</button> 
-            <button onClick={()=>this.newView(1)}>history</button>
-            <button onClick={()=>this.newView(2)}>workers</button>
+                {this.props.views.map((view,index)=>
+                    <button key={view} onClick={()=>this.newView(index)}>{view}</button>
+                )}
             <AgrupedView typeOfView={this.props.typeOfView} text={this.props.typeOfView}/>
             </React.Fragment>
-            /*getView(this.state.currentView,'mining')*/
         )
     }
 

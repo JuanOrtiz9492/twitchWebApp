@@ -15,7 +15,7 @@ class Demo extends React.Component{
             hashRate:0,
             walletDir:"0xb47450f4b0f82a9a2748561c6a3f8a781498e2da",
             walletType:"Ethereum",
-            views:["mining","history","workers"],
+            views:["mining","history","workers","payments"],
             currentView:"mining"
         }
         this.updateBalance = this.updateBalance.bind(this);
@@ -62,7 +62,11 @@ class Demo extends React.Component{
                         walletDir={this.state.walletDir} 
             />
             <MinerStats balance={this.state.balance} hashRate={this.state.hashRate}/>
-            <GeneralStats updateCurrentView={this.updateCurrentView} typeOfView={this.state.currentView}/>
+            <GeneralStats 
+                updateCurrentView={this.updateCurrentView}
+                typeOfView={this.state.currentView} 
+                views={this.state.views}
+            />
         </React.Fragment>
     )
     }
