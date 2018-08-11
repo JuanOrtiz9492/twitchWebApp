@@ -1,14 +1,14 @@
-header{
+.mainHeader{
     background-color: orange;
     display: flex;
     justify-content: space-between; 
 }
-header>h1{
+.mainHeader h1{
     text-transform: uppercase;
     text-align: center;
     width: 80%;
 }
-header>nav{
+.mainHeader nav{
     margin-right: 5vw;
 }
 nav button{

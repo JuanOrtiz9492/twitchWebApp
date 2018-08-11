@@ -1,9 +1,9 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
-import '../uiComponents/navBar.css'
+import './navBar.css'
 const Navbar =()=> {
     return(
-        <header>
+        <header className="mainHeader">
             <h1><NavLink to="/">nanopool monitor</NavLink></h1>
             <nav>
                 <NavLink to="/demo"><button>Demo</button></NavLink>

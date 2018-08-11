@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter, Route , Switch} from 'react-router-dom'
 import Main from './components/main'
-import Demo from './components/demo'
+import Demo from './components/Demo'
 import MiningMonitor from './components/minigMonitor'
 class App extends Component {
   render() {

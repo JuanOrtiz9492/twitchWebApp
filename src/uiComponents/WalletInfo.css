@@ -1,0 +1,13 @@
+.WalletInfo{
+    display: flex;
+    flex-direction: row;
+}
+.WalletInfo>label{
+    display: flex;
+    flex-direction: row;
+}
+.WalletInfo input,.WalletInfo>button{
+    height: max-content;
+    align-self: center;
+    margin-left: 1em;
+}

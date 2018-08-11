@@ -1,0 +1,15 @@
+.minerStats{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+}
+.minerStats>span:nth-child(2){
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+.minerStats span{
+    text-align: center;
+}
+.minerStats h3{
+    text-align: center;
+}
