@@ -7,9 +7,9 @@ const AgrupedView =(props)=>{
     let viewReturned
     const view={
 
-        'mining':  ()=><MiningChart text={props.text}/>,
-        'history': ()=><MiningHistory text={props.text}/>,
-        'workers': ()=><MiningWorkers text={props.text}/>
+        'mining':  ()=><MiningChart data={props.data}/>,
+        'history': ()=><MiningHistory data={props.data}/>,
+        'workers': ()=><MiningWorkers data={props.data}/>
 
         }
     if(view[props.typeOfView]){

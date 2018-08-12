@@ -15,15 +15,19 @@ class Demo extends React.Component{
             balance:0,
             disabled:"disable",
             hashRate:0,
+            isReadyToShow:false,
             walletDir:"0xb47450f4b0f82a9a2748561c6a3f8a781498e2da",
             walletType:"Ethereum",
             views:["mining","history","workers","payments"],
             currentView:"mining"
         }
         this.updateCurrentView = this.updateCurrentView.bind(this)
+        this.updateIsReadyToShow = this.updateIsReadyToShow.bind(this)
         this.getWalletInfo = this.getWalletInfo.bind(this)
+
     }
     getWalletInfo(){
+        this.props.fetchData()
         let details={
 
             address:this.state.walletDir,
@@ -37,9 +41,10 @@ class Demo extends React.Component{
                 details.balance=response.data.data
                 axios.get('https://api.nanopool.org/v1/eth/avghashrate/'+this.state.walletDir)
                     .then((response)=>{
-                        
+
                     details.hashRate=response.data.data.h1
                     this.props.updateWalletInfo(details)
+                    this.updateIsReadyToShow()
                 }
             )
         }).catch((e)=>{
@@ -57,8 +62,16 @@ class Demo extends React.Component{
             }
         });
     }
+
+    updateIsReadyToShow(){
+        this.setState({
+            isReadyToShow:!this.props.walletDetails[1].fetchingData
+        })
+    }
+
     render(){
         let walletDetails = this.props.walletDetails[0]
+        console.log(this.state.isReadyToShow)
     return(
         <React.Fragment>
             <Navbar/>
@@ -67,11 +80,12 @@ class Demo extends React.Component{
                         walletDir={this.state.walletDir} 
             />
             <MinerStats balance={walletDetails.accountBalance} hashRate={walletDetails.averageHashRate}/>
+            {this.state.isReadyToShow?
             <GeneralStats 
                 updateCurrentView={this.updateCurrentView}
                 typeOfView={this.state.currentView} 
                 views={this.state.views}
-            />
+            />:null}
         </React.Fragment>
     )
     }

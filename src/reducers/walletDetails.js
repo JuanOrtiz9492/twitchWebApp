@@ -22,7 +22,7 @@ const walletDetails =(state=initialState,action)=>{
 
             accountBalance: action.payload.balance,
             averageHashRate:action.payload.hashRate,
-            walletAddres: action.payload.addres
+            walletAddress: action.payload.address
         }].concat(initialState.slice(1))
 
         case "FETCH_DATA":
