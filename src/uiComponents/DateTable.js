@@ -11,15 +11,30 @@ const dateToString=(dateSeconds)=>{
     return(year+'-'+month+'-'+day+' '+hour+':'+minutes)
 }
 const DateTable =(props)=>{
-    let keys = Object.getOwnPropertyNames(props.data[0])
+    let objectKeys = Object.getOwnPropertyNames(props.data[0])
+    objectKeys.map((key)=>{
+        console.log(props.data)
+    })
+    let keyRow=0;
+    let keyColumn=0;
     dateToString(props.data[0].date)
     return(
         <table>
-            <tbody>
-            <tr>{keys.map((title)=><th key={title}>{title}</th>)}</tr>
-                {props.data.map((row)=><tr key={row.date}><td>{dateToString(row.date)}</td><td>{row.hashrate}</td></tr>)}
-            </tbody>
-        </table>
+        <tbody>
+        <tr>{objectKeys.map((title)=><th key={title}>{title}</th>)}</tr>
+            {
+                props.data.map((row)=>
+                <tr key={keyRow++}>
+
+                    {
+                        objectKeys.map((objectKey,index)=>
+                            <td key={keyColumn++}>{objectKey=='date'?dateToString(row[objectKey]):row[objectKey]}</td>
+                    )}
+
+                </tr>)
+            }
+        </tbody>
+    </table>
     )
 }
 
