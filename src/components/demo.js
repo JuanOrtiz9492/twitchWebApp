@@ -52,6 +52,7 @@ class Demo extends React.Component{
         })
     }
     componentDidMount(){
+        this.mounted=true;
         this.getWalletInfo()
        /* this.timerID = setInterval(
             () => this.getWalletInfo(),
@@ -60,16 +61,22 @@ class Demo extends React.Component{
         
     }
 
-    /*componentWillUnmount() {
-        clearInterval(this.timerID);
-      }*/
+    componentWillUnmount() {
+        this.mounted=false;
+        //clearInterval(this.timerID);
+      }
 
     updateCurrentView(index) {
-        this.setState((prevState)=>{
-            return{   
-                currentView: prevState.views[index]
-            }
-        });
+        if(this.mounted) {
+
+            this.setState((prevState)=>{
+
+                return  {   
+                    currentView: prevState.views[index]
+                }
+            })
+
+        }
     }
 
     updateIsReadyToShow(isReady){

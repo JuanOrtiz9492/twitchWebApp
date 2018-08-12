@@ -22,7 +22,7 @@ class GeneralStats extends React.Component{
                 {this.props.views.map((view,index)=>
                     <button key={view} onClick={()=>this.newView(index)}>{view}</button>
                 )}
-            <AgrupedView typeOfView={this.props.typeOfView} data={this.props.typeOfView}/>
+            <AgrupedView typeOfView={this.props.typeOfView}/>
             </React.Fragment>
         )
     }

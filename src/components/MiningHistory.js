@@ -1,5 +1,5 @@
 import React from 'react'
-import Table from './Table'
+import DateTable from '../uiComponents/DateTable'
 import {connect} from 'react-redux'
 import  axios from 'axios'
 import * as actions from '../actions/minerActions'
@@ -7,7 +7,7 @@ import * as actions from '../actions/minerActions'
 
 
 
-class MiningChart extends React.Component {
+class MiningHistory extends React.Component {
     constructor(props){
         super(props)
 
@@ -30,18 +30,22 @@ class MiningChart extends React.Component {
                 this.updateIsReadyToShow(true)
             })
     }
+    
     updateDataOnStore(data){
 
         let dataLength=data.length
         this.props.updateHashOverTime(data.slice(dataLength-6))
-        this.updateTableData(this.props.miningHistory.hashOverTime[0])
+        if(this.mounted){this.updateTableData(this.props.miningHistory[0].hashOverTime[0])}
 
     }
+
     updateTableData(tableData){
+
         this.setState({
             tableData:tableData
         })
     }
+
     updateIsReadyToShow(isReady){
         this.setState({
             isReadyToShow:isReady
@@ -49,7 +53,11 @@ class MiningChart extends React.Component {
     }
 
     componentDidMount(){
+        this.mounted=true;
         this.fetchData()
+    }
+    componentWillUnmount(){
+        this.mounted=false;
     }
 
     render(){
@@ -57,7 +65,7 @@ class MiningChart extends React.Component {
         return(
             <React.Fragment>
                 <p>will be added a chart related with mining in here</p>
-                {this.state.isReadyToShow?<Table data={this.state.tableData}/>:null}
+                {this.state.isReadyToShow?<DateTable data={this.state.tableData}/>:null}
             </React.Fragment>
         );
     }
@@ -72,4 +80,4 @@ const mapStateToProps=(state)=>{
     }
 }
 
-export default connect(mapStateToProps,actions)(MiningChart)
+export default connect(mapStateToProps,actions)(MiningHistory)

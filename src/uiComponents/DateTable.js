@@ -10,7 +10,7 @@ const dateToString=(dateSeconds)=>{
     let minutes = date.getMinutes()<10?('0'+date.getMinutes().toString()):date.getMinutes().toString()
     return(year+'-'+month+'-'+day+' '+hour+':'+minutes)
 }
-const Table =(props)=>{
+const DateTable =(props)=>{
     let keys = Object.getOwnPropertyNames(props.data[0])
     dateToString(props.data[0].date)
     return(
@@ -23,4 +23,4 @@ const Table =(props)=>{
     )
 }
 
-export default Table
+export default DateTable

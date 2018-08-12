@@ -11,10 +11,11 @@ export function updateWalletInfo(details){
 
 }
 
-export function fetchData(){
+export function updateHashOverDay(details){
 
     return{
-        type:"FETCH_DATA"
+        type:"UPDATE_HASH_OVER_DAY",
+        payload:{hashOverDay:details}
     }
 
 }
@@ -25,4 +26,13 @@ export function updateHashOverTime(details){
         payload:{hashOverTime:details}
     }
 
+}
+export function workersUpdate(details){
+
+    return{
+        
+        type:"UPDATE_WORKERS",
+        payload:{workers:details}
+    }
+    
 }

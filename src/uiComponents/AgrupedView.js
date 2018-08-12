@@ -1,15 +1,15 @@
 import React from 'react'
-import MiningChart from '../uiComponents/MinigChart'
-import MiningHistory from '../uiComponents/MiningHistory'
-import MiningWorkers from '../uiComponents/MiningWorkers'
+import MiningChart from '../components/MinigChart'
+import MiningHistory from '../components/MiningHistory'
+import MiningWorkers from '../components/MiningWorkers'
 
 const AgrupedView =(props)=>{
     let viewReturned
     const view={
 
-        'mining':  ()=><MiningChart data={props.data}/>,
-        'history': ()=><MiningHistory data={props.data}/>,
-        'workers': ()=><MiningWorkers data={props.data}/>
+        'mining':  ()=><MiningChart/>,
+        'history': ()=><MiningHistory/>,
+        'workers': ()=><MiningWorkers/>
 
         }
     if(view[props.typeOfView]){
