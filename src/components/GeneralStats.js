@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import {connect} from 'react-redux'
 import * as actions from '../actions/minerActions'
 import AgrupedView from '../uiComponents/AgrupedView'
@@ -7,6 +6,7 @@ class GeneralStats extends React.Component{
 
     constructor(props){
         super(props)
+        
 
         this.newView = this.newView.bind(this)
 

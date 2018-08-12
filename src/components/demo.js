@@ -27,14 +27,14 @@ class Demo extends React.Component{
 
     }
     getWalletInfo(){
-        this.props.fetchData()
         let details={
 
             address:this.state.walletDir,
             balance:0,
             hashRate:0
 
-        }
+            }
+
         axios.get('https://api.nanopool.org/v1/eth/balance/'+this.state.walletDir)
             .then((response)=>{
 
@@ -44,7 +44,7 @@ class Demo extends React.Component{
 
                     details.hashRate=response.data.data.h1
                     this.props.updateWalletInfo(details)
-                    this.updateIsReadyToShow()
+                    this.updateIsReadyToShow(true)
                 }
             )
         }).catch((e)=>{
@@ -53,7 +53,16 @@ class Demo extends React.Component{
     }
     componentDidMount(){
         this.getWalletInfo()
+       /* this.timerID = setInterval(
+            () => this.getWalletInfo(),
+            10000
+          );*/
+        
     }
+
+    /*componentWillUnmount() {
+        clearInterval(this.timerID);
+      }*/
 
     updateCurrentView(index) {
         this.setState((prevState)=>{
@@ -63,9 +72,9 @@ class Demo extends React.Component{
         });
     }
 
-    updateIsReadyToShow(){
+    updateIsReadyToShow(isReady){
         this.setState({
-            isReadyToShow:!this.props.walletDetails[1].fetchingData
+            isReadyToShow:isReady
         })
     }
 
