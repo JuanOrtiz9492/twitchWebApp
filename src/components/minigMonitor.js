@@ -42,10 +42,10 @@ class MiningMonitor extends React.Component{
                 details.balance=response.data.data
                 axios.get('https://api.nanopool.org/v1/eth/avghashrate/'+this.state.walletDir)
                     .then((response)=>{
-
+                    
                     details.hashRate=response.data.data.h1
                     
-                    if(!this.state.isReadyToShow){
+                    if(!this.state.isReadyToShow && !isNaN(details.balance)){
                         
                         this.props.updateWalletInfo(details)
                         this.updateIsReadyToShow(true)
