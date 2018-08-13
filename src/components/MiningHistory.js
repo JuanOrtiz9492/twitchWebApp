@@ -32,24 +32,31 @@ class MiningHistory extends React.Component {
     }
     
     updateDataOnStore(data){
-
+        
         let dataLength=data.length
         this.props.updateHashOverTime(data.slice(dataLength-6))
-        if(this.mounted){this.updateTableData(this.props.miningHistory[0].hashOverTime[0])}
+        this.updateTableData(this.props.miningHistory.hashOverTime)
 
     }
 
     updateTableData(tableData){
+        if(this.mounted){
 
-        this.setState({
-            tableData:tableData
-        })
+            this.setState({
+                tableData:tableData
+            })
+        }
+
     }
 
     updateIsReadyToShow(isReady){
-        this.setState({
-            isReadyToShow:isReady
-        })
+        if(this.mounted){
+
+            this.setState({
+                isReadyToShow:isReady
+            })
+        }
+
     }
 
     componentDidMount(){
@@ -64,7 +71,6 @@ class MiningHistory extends React.Component {
         console.log(this.state.isReadyToShow)
         return(
             <React.Fragment>
-                <p>will be added a chart related with mining in here</p>
                 {this.state.isReadyToShow?<DateTable data={this.state.tableData}/>:null}
             </React.Fragment>
         );

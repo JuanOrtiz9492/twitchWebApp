@@ -1,11 +1,14 @@
 import React from 'react'
 
 const HashDayTable = (props)=>{
-    let keys = Object.keys(props.data)
+
+    let objectKey = Object.keys(props.data)
+    
     return(
+        
         <table>
             <tbody>
-                {keys.map((row)=>(
+                {objectKey.map((row)=>(
                     <tr key={row}>
                         <th>{row}</th><td>{Math.round(props.data[row])}</td>
                     </tr>

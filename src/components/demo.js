@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import {connect} from 'react-redux';
 import Navbar from '../uiComponents/navBar'
-import WalletInfo from '../uiComponents/WalletInfo'
+import WalletInfo from '../components/WalletInfo'
 import MinerStats from '../uiComponents/MinerStats'
 import GeneralStats from './GeneralStats'
 import * as actions from '../actions/minerActions'
@@ -23,6 +23,7 @@ class Demo extends React.Component{
         }
         this.updateCurrentView = this.updateCurrentView.bind(this)
         this.updateIsReadyToShow = this.updateIsReadyToShow.bind(this)
+        this.updateWalletAddress = this.updateWalletAddress.bind(this)
         this.getWalletInfo = this.getWalletInfo.bind(this)
 
     }
@@ -80,9 +81,22 @@ class Demo extends React.Component{
     }
 
     updateIsReadyToShow(isReady){
-        this.setState({
-            isReadyToShow:isReady
-        })
+
+        if(this.mounted) {
+
+            this.setState({
+                isReadyToShow:isReady
+            })
+        }
+    }
+
+    updateWalletAddress(newAddress){
+
+        if(this.mounted) {
+            this.setState({
+                walletDir:newAddress
+            })
+        }
     }
 
     render(){
@@ -94,6 +108,7 @@ class Demo extends React.Component{
             <WalletInfo walletType={this.state.walletType} 
                         disabled={this.state.disabled} 
                         walletDir={this.state.walletDir} 
+                        newWalletAddress={this.updateWalletAddress}
             />
             <MinerStats balance={walletDetails.accountBalance} hashRate={walletDetails.averageHashRate}/>
             {this.state.isReadyToShow?

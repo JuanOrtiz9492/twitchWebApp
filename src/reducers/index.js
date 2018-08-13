@@ -6,5 +6,5 @@ import workersReducer from './workersReducer'
 export default combineReducers({
     walletDetails,
     miningHistoryReducer,
-    workersReducer
+    workersReducer,
 })

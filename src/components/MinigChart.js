@@ -11,7 +11,7 @@ class MiningChart extends React.Component {
 
         this.state={
             isReadyToShow:false,
-            tableData:[]
+            tableData:{}
         }
 
         this.fetchData = this.fetchData.bind(this)
@@ -29,22 +29,34 @@ class MiningChart extends React.Component {
             })
     }
     updateDataOnStore(data){
+        
         console.log(data)
         this.props.updateHashOverDay(data)
-        if(this.mounted){this.updateTableData(this.props.miningHistory[1].hashOverDay[0])}
+        console.log(this.props.miningHistory.hashOverDay)
+        this.updateTableData(this.props.miningHistory.hashOverDay)
         
-
     }
+
     updateTableData(tableData){
+
         console.log(tableData)
-        this.setState({
-            tableData:tableData
-        })
+        if(this.mounted){
+
+            this.setState({
+                tableData:tableData
+            })
+
+        }
     }
     updateIsReadyToShow(isReady){
-        this.setState({
-            isReadyToShow:isReady
-        })
+
+        if(this.mounted){
+
+            this.setState({
+                isReadyToShow:isReady
+            })
+
+        }
     }
 
     componentDidMount(){
@@ -60,7 +72,6 @@ class MiningChart extends React.Component {
         console.log(this.state.tableData)
         return(
             <React.Fragment>
-                <p>will be added a chart related with mining in here</p>
                 {this.state.isReadyToShow?<HashDayTable data={this.state.tableData}/>:null}
             </React.Fragment>
         );

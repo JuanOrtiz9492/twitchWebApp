@@ -1,21 +1,25 @@
-const initialState =[{
-    hashOverTime:{},
-    hashOverDay:{}
-}]
+const initialState ={
+    hashOverTime:[],
+    hashOverDay:{},
+    miningPayments:[]
+}
 
 const miningHistoryReducer =(state=initialState,action)=>{
 switch(action.type)
 {
     case "UPDATE_HASH_OVER_TIME":
     
-    return [{hashOverTime:[action.payload.hashOverTime]},...state.slice(1)]
+    return {...state,hashOverTime:action.payload.hashOverTime}
+   
 
     case "UPDATE_HASH_OVER_DAY":
 
-    return [
-        ...state.slice(0,1),
-        {hashOverDay:[action.payload.hashOverDay]}
-    ]
+    return {...state,hashOverDay:action.payload.hashOverDay}
+
+
+    case "UPDATE_MINING_PAYMENTS":
+
+    return {...state,miningPayments:action.payload.miningPayments}
 
     default:
     return state

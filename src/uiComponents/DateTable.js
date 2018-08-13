@@ -11,14 +11,13 @@ const dateToString=(dateSeconds)=>{
     return(year+'-'+month+'-'+day+' '+hour+':'+minutes)
 }
 const DateTable =(props)=>{
+
     let objectKeys = Object.getOwnPropertyNames(props.data[0])
-    objectKeys.map((key)=>{
-        console.log(props.data)
-    })
     let keyRow=0;
     let keyColumn=0;
-    dateToString(props.data[0].date)
+
     return(
+        
         <table>
         <tbody>
         <tr>{objectKeys.map((title)=><th key={title}>{title}</th>)}</tr>
