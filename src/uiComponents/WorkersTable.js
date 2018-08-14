@@ -1,4 +1,5 @@
 import React from 'react'
+import {Table} from 'reactstrap'
 
 const WorkersTable =(props)=>{
 
@@ -8,9 +9,11 @@ const WorkersTable =(props)=>{
 
     return(
         
-        <table>
-            <tbody>
+        <Table>
+            <thead>
             <tr>{objectKeys.map((title)=><th key={title}>{title}</th>)}</tr>
+            </thead>
+            <tbody>
                 {
                     props.data.map((row)=>
                     <tr key={keyRow++}>
@@ -23,7 +26,7 @@ const WorkersTable =(props)=>{
                     </tr>)
                 }
             </tbody>
-        </table>
+        </Table>
 
     )
 }

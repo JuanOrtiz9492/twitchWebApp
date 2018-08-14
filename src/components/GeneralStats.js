@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import * as actions from '../actions/minerActions'
 import AgrupedView from '../uiComponents/AgrupedView'
+import {Nav,NavLink} from 'reactstrap'
 class GeneralStats extends React.Component{
 
     constructor(props){
@@ -13,16 +14,22 @@ class GeneralStats extends React.Component{
     }
 
     newView(index){
+        
+        Array.from(document.getElementsByClassName('viewSelector')).forEach((tab)=>{
+            tab.classList.remove('selectedTab')
+        })
+
+        document.getElementsByClassName('viewSelector')[index].classList.add('selectedTab')
         this.props.updateCurrentView(index)
     }
 
     render(){
         return(
             <React.Fragment>
-                <nav>
+                <Nav tabs role="navigation">
                 {this.props.views.map((view,index)=>
-                    <button key={view} onClick={()=>this.newView(index)}>{view}</button>
-                )}</nav>
+                    <NavLink className="viewSelector" key={view} onClick={()=>this.newView(index)}>{view}</NavLink>
+                )}</Nav>
             <AgrupedView typeOfView={this.props.typeOfView}/>
             </React.Fragment>
         )

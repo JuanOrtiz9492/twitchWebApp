@@ -1,4 +1,5 @@
 import React from 'react'
+import {Table} from 'reactstrap'
 
 const HashDayTable = (props)=>{
 
@@ -6,7 +7,13 @@ const HashDayTable = (props)=>{
     
     return(
         
-        <table>
+        <Table>
+            <thead>
+                <tr>
+                    <th>Hours</th>
+                    <th> Average Hashrate </th>
+                </tr>
+            </thead>
             <tbody>
                 {objectKey.map((row)=>(
                     <tr key={row}>
@@ -14,7 +21,7 @@ const HashDayTable = (props)=>{
                     </tr>
                 ))}
             </tbody>
-            </table>
+            </Table>
     )
 
 }

@@ -2,18 +2,19 @@ import React from 'react'
 import axios from 'axios'
 import {connect} from 'react-redux';
 import Navbar from '../uiComponents/navBar'
+import Footer from '../uiComponents/Footer'
 import WalletInfo from '../components/WalletInfo'
 import MinerStats from '../uiComponents/MinerStats'
-import GeneralStats from './GeneralStats'
+import GeneralStats from '../components/GeneralStats'
 import * as actions from '../actions/minerActions'
 
-class MiningMonitor extends React.Component{
+class Demo extends React.Component{
 
     constructor(props){
         super(props)
         this.state={
             balance:0,
-            disabled:"",
+            disabled:"disable",
             hashRate:0,
             isReadyToShow:false,
             walletDir:"0xb47450f4b0f82a9a2748561c6a3f8a781498e2da",
@@ -42,14 +43,10 @@ class MiningMonitor extends React.Component{
                 details.balance=response.data.data
                 axios.get('https://api.nanopool.org/v1/eth/avghashrate/'+this.state.walletDir)
                     .then((response)=>{
-                    
+
                     details.hashRate=response.data.data.h1
-                    
-                    if(!this.state.isReadyToShow && !isNaN(details.balance)){
-                        
-                        this.props.updateWalletInfo(details)
-                        this.updateIsReadyToShow(true)
-                    }
+                    this.props.updateWalletInfo(details)
+                    this.updateIsReadyToShow(true)
                 }
             )
         }).catch((e)=>{
@@ -64,11 +61,6 @@ class MiningMonitor extends React.Component{
             10000
           );*/
         
-    }
-
-    componentDidUpdate(){
-        
-        this.getWalletInfo()
     }
 
     componentWillUnmount() {
@@ -100,12 +92,10 @@ class MiningMonitor extends React.Component{
     }
 
     updateWalletAddress(newAddress){
-        console.log("this is the new address----->",newAddress)
-        if(this.mounted) {
 
+        if(this.mounted) {
             this.setState({
-                walletDir:newAddress,
-                isReadyToShow:false
+                walletDir:newAddress
             })
         }
     }
@@ -119,7 +109,6 @@ class MiningMonitor extends React.Component{
             <Navbar/>
 
             <section>
-
                 <WalletInfo walletType={this.state.walletType} 
                             disabled={this.state.disabled} 
                             walletDir={this.state.walletDir} 
@@ -134,7 +123,7 @@ class MiningMonitor extends React.Component{
                 typeOfView={this.state.currentView} 
                 views={this.state.views}
             />:null}
-            
+            <Footer/>
         </React.Fragment>
     )
     }
@@ -147,4 +136,4 @@ const mapStateToProps = (state)=>{
 }
 
 
-export default connect(mapStateToProps,actions)(MiningMonitor)
+export default connect(mapStateToProps,actions)(Demo)

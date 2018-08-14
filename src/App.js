@@ -4,9 +4,9 @@ import {applyMiddleware,createStore} from 'redux'
 import {Provider} from 'react-redux'
 import logger from 'redux-logger'
 import Reducers from './reducers'
-import Main from './components/main'
-import Demo from './components/Demo'
-import MiningMonitor from './components/minigMonitor'
+import Main from './pages/main'
+import Demo from './pages/Demo'
+import MiningMonitor from './pages/minigMonitor'
 
 const ownLogger = (store) => (next) => (action)=>{
   console.log("the following acction will be fired",action)

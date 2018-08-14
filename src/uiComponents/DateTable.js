@@ -1,4 +1,5 @@
 import React from 'react'
+import {Table} from 'reactstrap'
 
 const dateToString=(dateSeconds)=>{
 
@@ -18,9 +19,11 @@ const DateTable =(props)=>{
 
     return(
         
-        <table>
-        <tbody>
+        <Table>
+        <thead>
         <tr>{objectKeys.map((title)=><th key={title}>{title}</th>)}</tr>
+        </thead>
+        <tbody>
             {
                 props.data.map((row)=>
                 <tr key={keyRow++}>
@@ -33,7 +36,7 @@ const DateTable =(props)=>{
                 </tr>)
             }
         </tbody>
-    </table>
+    </Table>
     )
 }
 
