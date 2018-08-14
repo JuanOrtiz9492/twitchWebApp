@@ -19,9 +19,10 @@ class GeneralStats extends React.Component{
     render(){
         return(
             <React.Fragment>
+                <nav>
                 {this.props.views.map((view,index)=>
                     <button key={view} onClick={()=>this.newView(index)}>{view}</button>
-                )}
+                )}</nav>
             <AgrupedView typeOfView={this.props.typeOfView}/>
             </React.Fragment>
         )

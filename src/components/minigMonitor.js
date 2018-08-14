@@ -115,19 +115,26 @@ class MiningMonitor extends React.Component{
         console.log(this.state.isReadyToShow)
     return(
         <React.Fragment>
+
             <Navbar/>
-            <WalletInfo walletType={this.state.walletType} 
-                        disabled={this.state.disabled} 
-                        walletDir={this.state.walletDir} 
-                        newWalletAddress={this.updateWalletAddress}
-            />
-            <MinerStats balance={walletDetails.accountBalance} hashRate={walletDetails.averageHashRate}/>
+
+            <section>
+
+                <WalletInfo walletType={this.state.walletType} 
+                            disabled={this.state.disabled} 
+                            walletDir={this.state.walletDir} 
+                            newWalletAddress={this.updateWalletAddress}
+                />
+                <MinerStats balance={walletDetails.accountBalance} hashRate={walletDetails.averageHashRate}/>
+            </section>
+
             {this.state.isReadyToShow?
             <GeneralStats 
                 updateCurrentView={this.updateCurrentView}
                 typeOfView={this.state.currentView} 
                 views={this.state.views}
             />:null}
+            
         </React.Fragment>
     )
     }
