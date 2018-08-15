@@ -8,7 +8,6 @@ class GeneralStats extends React.Component{
     constructor(props){
         super(props)
         
-
         this.newView = this.newView.bind(this)
 
     }
@@ -22,6 +21,10 @@ class GeneralStats extends React.Component{
         document.getElementsByClassName('viewSelector')[index].classList.add('selectedTab')
         this.props.updateCurrentView(index)
     }
+
+componentDidMount(){
+    document.getElementsByClassName('viewSelector')[0].classList.add('selectedTab')
+}
 
     render(){
         return(

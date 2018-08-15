@@ -1,7 +1,6 @@
 import React from 'react'
 import HashDayTable from '../uiComponents/HashDayTable'
 import {connect} from 'react-redux'
-import  axios from 'axios'
 import * as actions from '../actions/minerActions'
 
 
@@ -9,70 +8,24 @@ class MiningChart extends React.Component {
     constructor(props){
         super(props)
 
-        this.state={
-            isReadyToShow:false,
-            tableData:{}
-        }
-
         this.fetchData = this.fetchData.bind(this)
-        this.updateDataOnStore = this.updateDataOnStore.bind(this)
-        this.updateTableData = this.updateTableData.bind(this)
-        this.updateIsReadyToShow = this.updateIsReadyToShow.bind(this)
     }
 
     fetchData(){
-        let address=this.props.walletDetails[0].walletAddress
-        axios.get('https://api.nanopool.org/v1/eth/avghashrate/'+address)
-            .then((response)=>{
-                this.updateDataOnStore(response.data.data)
-                this.updateIsReadyToShow(true)
-            })
-    }
-    updateDataOnStore(data){
-        
-        console.log(data)
-        this.props.updateHashOverDay(data)
-        console.log(this.props.miningHistory.hashOverDay)
-        this.updateTableData(this.props.miningHistory.hashOverDay)
-        
-    }
 
-    updateTableData(tableData){
+            this.props.getAverageHashRate(this.props.walletDetails[0].walletAddress)
 
-        console.log(tableData)
-        if(this.mounted){
-
-            this.setState({
-                tableData:tableData
-            })
-
-        }
-    }
-    updateIsReadyToShow(isReady){
-
-        if(this.mounted){
-
-            this.setState({
-                isReadyToShow:isReady
-            })
-
-        }
     }
 
     componentDidMount(){
-        this.mounted=true;
         this.fetchData()
-    }
-    componentWillUnmount(){
-        this.mounted=false;
     }
 
     render(){
-        console.log(this.state.isReadyToShow)
-        console.log(this.state.tableData)
+        let tableData = this.props.miningHistory.hashOverDay
         return(
             <React.Fragment>
-                {this.state.isReadyToShow?<HashDayTable data={this.state.tableData}/>:null}
+                <HashDayTable data={tableData}/>
             </React.Fragment>
         );
     }
