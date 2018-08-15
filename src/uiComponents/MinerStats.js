@@ -1,6 +1,7 @@
 import React from 'react'
 import '../styles/MinerStats.css'
 const MinerStats =(props)=>{
+
     return(
         <div className="minerStats">
             <h3>Account Balance</h3>

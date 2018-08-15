@@ -13,3 +13,6 @@ a:hover{
 .selectedTab{
     background-color: #e9ecef;
 }
+a.viewSelector.nav-link:hover{
+    cursor: pointer;
+}

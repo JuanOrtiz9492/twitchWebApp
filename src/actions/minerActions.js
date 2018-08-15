@@ -1,3 +1,83 @@
+import axios from 'axios'
+
+
+export function getAverageHashRate(wallet){
+
+    return (dispatch)=>{
+        return axios.get('https://api.nanopool.org/v1/eth/avghashrate/'+wallet)
+        .then((response)=>{
+
+            dispatch(updateHashOverDay(response.data.data))
+             
+        })
+    }
+
+}
+
+export function getMiningHistory(wallet){
+
+    return (dispatch)=>{
+        return axios.get('https://api.nanopool.org/v1/eth/history/'+wallet)
+        .then((response)=>{
+
+            dispatch(updateHashOverTime(response.data.data))
+             
+        })
+    }
+
+}
+
+
+export function getMiningPayments(wallet){
+
+    return (dispatch)=>{
+        return axios.get('https://api.nanopool.org/v1/eth/payments/'+wallet)
+        .then((response)=>{
+
+            dispatch(updateMiningPayments(response.data.data))
+             
+        })
+    }
+
+}
+
+export function getWalletInfo(wallet){
+
+        let details={
+
+            address:wallet,
+            balance:0,
+            hashRate:0
+            }
+
+        return(dispatch)=>{
+
+            axios.get('https://api.nanopool.org/v1/eth/balance/'+wallet)
+                    .then((response)=>{
+                        details.balance=response.data.data
+                        axios.get('https://api.nanopool.org/v1/eth/avghashrate/'+wallet)
+                            .then((response)=>{
+                                details.hashRate=response.data.data.h1
+                                dispatch(updateWalletInfo(details))
+                            })
+                        })
+        }
+
+}
+
+export function getWorkers(wallet){
+
+    return (dispatch)=>{
+        return axios.get('https://api.nanopool.org/v1/eth/workers/'+wallet)
+        .then((response)=>{
+
+            dispatch(updateworkers(response.data.data))
+             
+        })
+    }
+
+}
+
 
 export function updateHashOverDay(details){
 
@@ -38,7 +118,7 @@ export function updateWalletInfo(details){
 
 }
 
-export function workersUpdate(details){
+export function updateworkers(details){
 
     return{
         

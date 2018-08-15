@@ -3,6 +3,7 @@ import {BrowserRouter, Route , Switch} from 'react-router-dom'
 import {applyMiddleware,createStore} from 'redux'
 import {Provider} from 'react-redux'
 import logger from 'redux-logger'
+import thunk from 'redux-thunk'
 import Reducers from './reducers'
 import Main from './pages/main'
 import Demo from './pages/Demo'
@@ -13,7 +14,7 @@ const ownLogger = (store) => (next) => (action)=>{
   next(action)
 }
 
-const middleWare = applyMiddleware(ownLogger,logger)
+const middleWare = applyMiddleware(thunk,logger)
 const store = createStore(Reducers,middleWare)
 
 class App extends Component {
