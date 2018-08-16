@@ -1,5 +1,6 @@
 import React from 'react'
 import {Table} from 'reactstrap'
+import LoaderIcon from './LoaderIcon'
 
 const dateToString=(dateSeconds)=>{
 
@@ -13,9 +14,9 @@ const dateToString=(dateSeconds)=>{
 }
 const DateTable =(props)=>{
     
-    let returnTable = null
+    let returnTable = <LoaderIcon/>
 
-    if(Array.isArray(props.data) && (typeof props.data[0]== 'object') ){
+    if (Array.isArray(props.data) && (typeof props.data[0]== 'object') ) {
 
         let objectKeys = Object.getOwnPropertyNames(props.data[0])
         let keyRow=0;
