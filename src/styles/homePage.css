@@ -1,0 +1,18 @@
+.webDescription{
+    margin-top: 50px;
+    text-align: justify;
+    width: 80vw;
+}
+.webDescription>h2{
+    text-transform: uppercase;
+}
+.webDescription>p{
+    font-size: 1.2em;
+    line-height: 2em;
+}
+.list-group{
+
+    width: max-content;
+    margin-top: 50px;
+
+}

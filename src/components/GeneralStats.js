@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import * as actions from '../actions'
 import {Nav,NavLink} from 'reactstrap'
 import MiningTables from './MiningTables'
+import '../styles/generalStats.css'
 class GeneralStats extends React.Component{
 
     constructor(props){
@@ -94,14 +95,13 @@ componentDidMount(){
     render(){
         
         return(
-            <React.Fragment>
+            <div className="infoContainer">
                 <Nav tabs role="navigation">
                 {this.props.views.map((view,index)=>
-                    <NavLink className="viewSelector" key={view} onClick={()=>this.newView(index)}>{view}</NavLink>
-                )}</Nav>
+                    <NavLink className="viewSelector" key={view} onClick={()=>this.newView(index)}>{view}</NavLink> )}
+                </Nav>
                 <MiningTables view={this.props.typeOfView}/>
-            {/*<AgrupedView typeOfView={this.props.typeOfView}/>*/}
-            </React.Fragment>
+            </div>
         )
     }
 

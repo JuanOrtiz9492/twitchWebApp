@@ -39,7 +39,7 @@ render(){
 
     let dataList=this.getDataTable(this.props.view)
     let pageIndex=this.props.pagination.paginationBarIndex
-    let ItemsOnList = 6
+    let ItemsOnList = 5
     let totalPages = pages(dataList,ItemsOnList)
 
     return(

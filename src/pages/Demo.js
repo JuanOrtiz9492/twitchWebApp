@@ -67,26 +67,26 @@ class Demo extends React.Component{
 
     return(
         <React.Fragment>
+            <div>
+                <Navbar/>
 
-            <Navbar/>
+                    <section>
+                        <WalletInfo walletType={this.state.walletType} 
+                                    disabled={this.state.disabled} 
+                                    walletDir={this.state.walletDir} 
+                                    newWalletAddress={this.updateWalletAddress}
+                        />
+                    <MinerStats balance={walletDetails.accountBalance} hashRate={walletDetails.averageHashRate}/>
+                    </section>
 
-            <section>
-                <WalletInfo walletType={this.state.walletType} 
-                            disabled={this.state.disabled} 
-                            walletDir={this.state.walletDir} 
-                            newWalletAddress={this.updateWalletAddress}
-                />
-                <MinerStats balance={walletDetails.accountBalance} hashRate={walletDetails.averageHashRate}/>
-            </section>
-
-            <GeneralStats 
-                updateCurrentView={this.updateCurrentView}
-                typeOfView={this.state.currentView} 
-                views={this.state.views}
-                query={this.state.queriesList[this.state.viewIndex]}
-                walletAddress={this.state.walletDir}
-            />
-
+                    <GeneralStats 
+                        updateCurrentView={this.updateCurrentView}
+                        typeOfView={this.state.currentView} 
+                        views={this.state.views}
+                        query={this.state.queriesList[this.state.viewIndex]}
+                        walletAddress={this.state.walletDir}
+                    />
+                </div>
             <Footer/>
             
         </React.Fragment>

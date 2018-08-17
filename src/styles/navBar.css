@@ -2,8 +2,11 @@
     background-color: orange;
     display: flex;
     justify-content: space-between; 
+    width: 100vw;
+    height: 10vh;
 }
 .mainHeader h1{
+    align-self: center;
     text-transform: uppercase;
     text-align: center;
     width: 80%;
@@ -16,10 +19,4 @@ nav button{
     margin-top: 0.1em;
     margin-left: 0.2em;
 }
-a{
-    text-decoration: none;
-    color: black;
-}
-a:active{
-    color:black;
-}
+
