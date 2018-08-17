@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import * as actions from '../actions/minerActions'
+import * as actions from '../actions'
 import {Nav,NavLink} from 'reactstrap'
 import MiningTables from './MiningTables'
 class GeneralStats extends React.Component{
@@ -43,7 +43,7 @@ class GeneralStats extends React.Component{
     }
 
     fetchData(query){
-        console.log("query type",query)
+
         const queryCalls={
 
             "avghashrate":  ()=>(this.props.getAverageHashRate(this.props.walletAddress)),
@@ -69,14 +69,14 @@ class GeneralStats extends React.Component{
         })
 
         document.getElementsByClassName('viewSelector')[index].classList.add('selectedTab')
+        this.props.mainPage()
         this.props.updateCurrentView(index)
     }
 
 componentDidUpdate(){
-    console.log("update before if--->",this.state.walletDir,"props ",this.props.walletAddress,"newPropr? :",this.state.newPropAvailable)
+
     if(this.state.newPropAvailable){
 
-        console.log(" update: ",this.state.walletDir," query: ",this.state.queryCall)
         this.fetchData(this.props.query)
 
     }
@@ -85,14 +85,14 @@ componentDidUpdate(){
 
 
 componentDidMount(){
-    console.log("mount",this.props)
+    
     this.fetchData(this.props.query)
     document.getElementsByClassName('viewSelector')[0].classList.add('selectedTab')
 
 }
 
     render(){
-        console.log("these are the props i got",this.props)
+        
         return(
             <React.Fragment>
                 <Nav tabs role="navigation">

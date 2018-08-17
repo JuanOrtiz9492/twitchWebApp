@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {sortByDate,sortByLastShare} from '../utilities/DataManipulation'
 
 
 export function getAverageHashRate(wallet){
@@ -89,14 +90,21 @@ export function updateHashOverDay(details){
 }
 
 export function updateHashOverTime(details){
+
+    sortByDate(details)
+
     return {
+
         type:"UPDATE_HASH_OVER_TIME",
         payload:{hashOverTime:details}
+
     }
 
 }
 
 export function updateMiningPayments(details){
+
+    sortByDate(details)
 
     return{
         type:"UPDATE_MINING_PAYMENTS",
@@ -119,7 +127,7 @@ export function updateWalletInfo(details){
 }
 
 export function updateworkers(details){
-
+    sortByLastShare(details)
     return{
         
         type:"UPDATE_WORKERS",
