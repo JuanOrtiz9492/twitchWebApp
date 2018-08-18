@@ -1,0 +1,18 @@
+body{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+a{
+    color:black;
+}
+a:hover{
+    color:black;
+    text-decoration: none;
+}
+.selectedTab{
+    background-color: #e9ecef;
+}
+a.viewSelector.nav-link:hover{
+    cursor: pointer;
+}
