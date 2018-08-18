@@ -34,42 +34,26 @@ export function listSlicer (list, itemsPerList ,index ) {
 
 
 
-export function sortByDate(data) {
+export function sortListbyKey(data,key) {
 
-    data.sort(function(a,b){
-
-        let returnValue=0
-
-        if(a.date<b.date){
-            returnValue =1
-        }
-        else if(a.date>b.date){
-            returnValue=-1
-        }
-
-        return returnValue
-
-    })
-}
-
-
-
-
-    export function sortByLastShare(data) {
+    if(data.length!=0 && data[0].hasOwnProperty(key)){
 
         data.sort(function(a,b){
-    
+
             let returnValue=0
     
-            if(a.lastShare<b.lastShare){
+            if(a[key]<b[key]){
                 returnValue =1
             }
-            else if(a.lastShare>b.lastShare){
+            else if(a[key]>b[key]){
                 returnValue=-1
             }
     
             return returnValue
     
         })
+
+    }
     
 }
+

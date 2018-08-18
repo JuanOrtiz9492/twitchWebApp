@@ -18,6 +18,7 @@ const paginationReducer=(state=initialState,action)=>{
 
         return {...state, paginationBarIndex : initialState.paginationBarIndex }
 
+
         default:
 
         return state

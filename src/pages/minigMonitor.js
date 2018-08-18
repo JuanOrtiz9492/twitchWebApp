@@ -15,7 +15,7 @@ class MiningMonitor extends React.Component{
         super(props)
         this.state={
             disabled:"",
-            walletDir:"0xb47450f4b0f82a9a2748561c6a3f8a781498e2da",
+            walletDir:"",
             walletType:"Ethereum",
             queriesList:["avghashrate","history","workers","payments"],
             views:["mining","history","workers","payments"],

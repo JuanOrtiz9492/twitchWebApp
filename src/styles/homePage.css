@@ -16,3 +16,9 @@
     margin-top: 50px;
 
 }
+@media(max-height:800px){
+    article.webDescription+footer.socialNetworks{
+        position: absolute;
+        bottom: 0;
+    }
+}

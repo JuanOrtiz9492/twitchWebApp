@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {sortByDate,sortByLastShare} from '../utilities/DataManipulation'
+import {sortListbyKey} from '../utilities/DataManipulation'
 
 
 export function getAverageHashRate(wallet){
@@ -50,16 +50,27 @@ export function getWalletInfo(wallet){
             balance:0,
             hashRate:0
             }
+        let errorDetails={
+
+            status:true,
+            error:"",
+
+        }
 
         return(dispatch)=>{
 
             axios.get('https://api.nanopool.org/v1/eth/balance/'+wallet)
                     .then((response)=>{
+
                         details.balance=response.data.data
+                        errorDetails.status=response.data.status
+                        errorDetails.error=response.data.status?"":wallet==""?response.data.data:response.data.error
+
                         axios.get('https://api.nanopool.org/v1/eth/avghashrate/'+wallet)
                             .then((response)=>{
                                 details.hashRate=response.data.data.h1
                                 dispatch(updateWalletInfo(details))
+                                dispatch(updateErrorInfo(errorDetails))
                             })
                         })
         }
@@ -80,6 +91,22 @@ export function getWorkers(wallet){
 }
 
 
+export function updateErrorInfo(details){
+
+    return{
+
+    type:"DATA_ERROR",
+    payload:{
+        status:details.status,
+        error:details.error
+    },
+
+    }
+
+}
+
+
+
 export function updateHashOverDay(details){
 
     return{
@@ -91,7 +118,7 @@ export function updateHashOverDay(details){
 
 export function updateHashOverTime(details){
 
-    sortByDate(details)
+    sortListbyKey(details,"date")
 
     return {
 
@@ -103,8 +130,8 @@ export function updateHashOverTime(details){
 }
 
 export function updateMiningPayments(details){
-
-    sortByDate(details)
+   
+    sortListbyKey(details,"date")
 
     return{
         type:"UPDATE_MINING_PAYMENTS",
@@ -116,6 +143,7 @@ export function updateMiningPayments(details){
 export function updateWalletInfo(details){
 
     return{
+
         type:"UPDATE_ADDRESS",
         payload:{
             address:details.address,
@@ -127,11 +155,14 @@ export function updateWalletInfo(details){
 }
 
 export function updateworkers(details){
-    sortByLastShare(details)
+
+    sortListbyKey(details,"lastShare")
+
     return{
         
         type:"UPDATE_WORKERS",
         payload:{workers:details}
+
     }
     
 }

@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import * as actions from '../actions'
 import {Nav,NavLink} from 'reactstrap'
 import MiningTables from './MiningTables'
+import NoWalletAddress from '../uiComponents/noWalletAddress'
 import '../styles/generalStats.css'
 class GeneralStats extends React.Component{
 
@@ -93,14 +94,14 @@ componentDidMount(){
 }
 
     render(){
-        
+        console.log(this.props.walletDetails[1])
         return(
             <div className="infoContainer">
                 <Nav tabs role="navigation">
                 {this.props.views.map((view,index)=>
                     <NavLink className="viewSelector" key={view} onClick={()=>this.newView(index)}>{view}</NavLink> )}
                 </Nav>
-                <MiningTables view={this.props.typeOfView}/>
+                {this.props.walletDetails[1].status?<MiningTables view={this.props.typeOfView}/>:<NoWalletAddress warning={this.props.walletDetails[1].error}/>}
             </div>
         )
     }

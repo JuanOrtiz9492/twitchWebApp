@@ -24,3 +24,12 @@ text-transform: uppercase;
 th::first-letter{
     text-transform: uppercase;
 }
+.alert-warning{
+
+    text-transform: uppercase;
+    margin: 7.5em auto;
+    font-size: 1.8em;
+    width: max-content;
+    
+
+}
