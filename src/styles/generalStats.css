@@ -1,0 +1,35 @@
+.infoContainer{
+    margin: 25px;
+    width: 90vw;
+    box-sizing: border-box;
+    
+}
+.infoContainer>.table{
+    height: 19em;
+}
+.infoContainer>nav{
+    margin: 0 auto;
+    width: max-content;
+    
+}
+.selectedTab{
+    background-color: #e9ecef;
+}
+.viewSelector{
+text-transform: uppercase;    
+}
+.viewSelector.nav-link:hover{
+    cursor: pointer;
+}
+th::first-letter{
+    text-transform: uppercase;
+}
+.alert-warning{
+
+    text-transform: uppercase;
+    margin: 7.5em auto;
+    font-size: 1.8em;
+    width: max-content;
+    
+
+}

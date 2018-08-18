@@ -7,6 +7,7 @@ import MinerStats from '../uiComponents/MinerStats'
 import GeneralStats from '../components/GeneralStats'
 import * as actions from '../actions/minerActions'
 
+
 class Demo extends React.Component{
 
     constructor(props){
@@ -15,7 +16,9 @@ class Demo extends React.Component{
             disabled:"disable",
             walletDir:"0xb47450f4b0f82a9a2748561c6a3f8a781498e2da",
             walletType:"Ethereum",
+            queriesList:["avghashrate","history","workers","payments"],
             views:["mining","history","workers","payments"],
+            viewIndex:0,
             currentView:"mining"
         }
         this.updateCurrentView = this.updateCurrentView.bind(this)
@@ -46,6 +49,9 @@ class Demo extends React.Component{
     updateCurrentView(index) {
 
         this.setState((prevState)=>({ currentView: prevState.views[index] }))
+        this.setState({
+            viewIndex:index
+        })
 
     }
 
@@ -56,27 +62,31 @@ class Demo extends React.Component{
     }
 
     render(){
+
         let walletDetails = this.props.walletDetails[0]
+
     return(
         <React.Fragment>
+            <div>
+                <Navbar/>
 
-            <Navbar/>
+                    <section>
+                        <WalletInfo walletType={this.state.walletType} 
+                                    disabled={this.state.disabled} 
+                                    walletDir={this.state.walletDir} 
+                                    newWalletAddress={this.updateWalletAddress}
+                        />
+                    <MinerStats balance={walletDetails.accountBalance} hashRate={walletDetails.averageHashRate}/>
+                    </section>
 
-            <section>
-                <WalletInfo walletType={this.state.walletType} 
-                            disabled={this.state.disabled} 
-                            walletDir={this.state.walletDir} 
-                            newWalletAddress={this.updateWalletAddress}
-                />
-                <MinerStats balance={walletDetails.accountBalance} hashRate={walletDetails.averageHashRate}/>
-            </section>
-
-            <GeneralStats 
-                updateCurrentView={this.updateCurrentView}
-                typeOfView={this.state.currentView} 
-                views={this.state.views}
-            />
-
+                    <GeneralStats 
+                        updateCurrentView={this.updateCurrentView}
+                        typeOfView={this.state.currentView} 
+                        views={this.state.views}
+                        query={this.state.queriesList[this.state.viewIndex]}
+                        walletAddress={this.state.walletDir}
+                    />
+                </div>
             <Footer/>
             
         </React.Fragment>

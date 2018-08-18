@@ -10,13 +10,16 @@ import * as actions from '../actions/minerActions'
 
 class MiningMonitor extends React.Component{
 
+
     constructor(props){
         super(props)
         this.state={
             disabled:"",
-            walletDir:"0xb47450f4b0f82a9a2748561c6a3f8a781498e2da",
+            walletDir:"",
             walletType:"Ethereum",
+            queriesList:["avghashrate","history","workers","payments"],
             views:["mining","history","workers","payments"],
+            viewIndex:0,
             currentView:"mining"
         }
         this.updateCurrentView = this.updateCurrentView.bind(this)
@@ -39,9 +42,6 @@ class MiningMonitor extends React.Component{
           );*/
         
     }
-    componentDidUpdate(){
-
-    }
 
     componentWillUnmount() {
         //clearInterval(this.timerID);
@@ -50,6 +50,9 @@ class MiningMonitor extends React.Component{
     updateCurrentView(index) {
 
         this.setState((prevState)=>({ currentView: prevState.views[index] }))
+        this.setState({
+            viewIndex:index
+        })
 
     }
 
@@ -60,7 +63,9 @@ class MiningMonitor extends React.Component{
     }
 
     render(){
+
         let walletDetails = this.props.walletDetails[0]
+
     return(
         <React.Fragment>
 
@@ -79,6 +84,8 @@ class MiningMonitor extends React.Component{
                 updateCurrentView={this.updateCurrentView}
                 typeOfView={this.state.currentView} 
                 views={this.state.views}
+                query={this.state.queriesList[this.state.viewIndex]}
+                walletAddress={this.state.walletDir}
             />
 
             <Footer/>

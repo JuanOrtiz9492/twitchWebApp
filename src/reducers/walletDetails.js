@@ -7,9 +7,8 @@ const initialState =[{
     },
     {
         
-        fetchingData:false,
-        fetchedData:false,
-        error:null,
+        status:true,
+        error:"",
 
     }
 ]
@@ -25,25 +24,14 @@ const walletDetails =(state=initialState,action)=>{
             walletAddress: action.payload.address
         }].concat(initialState.slice(1))
 
-        case "FETCH_DATA":
+        case "DATA_ERROR":
         
         return state.slice(0,1).concat([{
 
-                fetchingData:true,
-                fetchedData:false,
-                error:null,
+            status:action.payload.status,
+            error:action.payload.error,
 
         }])
-
-        case "RECIVED_DATA":
-
-        return state.slice(0,1).concat([{
-
-            fetchingData:false,
-            fetchedData:true,
-            error:null,
-
-    }])
 
         default:
         return state
