@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/MinerStats.css'
+import '../styles/minerStats.css'
 const MinerStats =(props)=>{
     
     let balance= isNaN(props.balance)?0:props.balance

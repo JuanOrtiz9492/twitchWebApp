@@ -1,7 +1,7 @@
 import React from 'react'
 import {Table} from 'reactstrap'
-import LoaderIcon from './LoaderIcon'
-import {dateToString} from '../utilities/DataManipulation'
+import LoaderIcon from './loaderIcon'
+import {dateToString} from '../utilities/dataManipulation'
 
 
 const DateTable =(props)=>{

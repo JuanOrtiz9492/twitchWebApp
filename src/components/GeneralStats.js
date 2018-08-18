@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import * as actions from '../actions'
 import {Nav,NavLink} from 'reactstrap'
-import MiningTables from './MiningTables'
+import MiningTables from '../uiComponents/miningTables'
 import NoWalletAddress from '../uiComponents/noWalletAddress'
 import '../styles/generalStats.css'
 class GeneralStats extends React.Component{

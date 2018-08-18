@@ -6,7 +6,7 @@ import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 import Reducers from './reducers'
 import Main from './pages/main'
-import Demo from './pages/Demo'
+import Demo from './pages/demo'
 import MiningMonitor from './pages/minigMonitor'
 
 const ownLogger = (store) => (next) => (action)=>{

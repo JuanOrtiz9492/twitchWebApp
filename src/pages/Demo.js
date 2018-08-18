@@ -1,10 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux';
 import Navbar from '../uiComponents/navBar'
-import Footer from '../uiComponents/Footer'
-import WalletInfo from '../components/WalletInfo'
-import MinerStats from '../uiComponents/MinerStats'
-import GeneralStats from '../components/GeneralStats'
+import Footer from '../uiComponents/footer'
+import WalletInfo from '../uiComponents/walletInfo'
+import MinerStats from '../uiComponents/minerStats'
+import GeneralStats from '../components/generalStats'
 import * as actions from '../actions/minerActions'
 
 

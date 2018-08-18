@@ -16,9 +16,5 @@ a:hover{
     align-items: center;
     flex-direction: column;
     justify-content: space-between;
-}
-@media (min-height:800px){
-    #root{
-        height: 100vh;
-    }
+    min-height: 100vh;
 }

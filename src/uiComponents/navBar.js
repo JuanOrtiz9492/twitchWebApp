@@ -1,8 +1,8 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
-import '../styles/navBar.css'
 import {connect} from 'react-redux'
-import * as actions from '../actions/index'
+import * as actions from '../actions'
+import '../styles/navBar.css'
 
 class Navbar extends React.Component {
     constructor(props){

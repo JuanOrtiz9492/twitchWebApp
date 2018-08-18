@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from '../uiComponents/navBar'
-import Footer from '../uiComponents/Footer'
+import Footer from '../uiComponents/footer'
 import {ListGroup,ListGroupItem} from 'reactstrap'
 import '../styles/homePage.css'
 const Main =()=>{

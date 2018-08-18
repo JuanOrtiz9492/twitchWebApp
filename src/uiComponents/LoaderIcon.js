@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/LoaderIcon.css'
+import '../styles/loaderIcon.css'
 
 const LoaderIcon = () =>{
 

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {sortListbyKey} from '../utilities/DataManipulation'
+import {sortListbyKey} from '../utilities/dataManipulation'
 
 
 export function getAverageHashRate(wallet){

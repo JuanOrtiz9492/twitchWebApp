@@ -1,8 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import DateTable from '../uiComponents/DateTable'
-import {listSlicer,pages} from '../utilities/DataManipulation'
-import PaginationBar from '../uiComponents/PaginationBar'
+import DateTable from '../uiComponents/dateTable'
+import {listSlicer,pages} from '../utilities/dataManipulation'
+import PaginationBar from '../uiComponents/paginationBar'
 import * as pageNavigation from '../actions/paginationBarActions'
 
 
