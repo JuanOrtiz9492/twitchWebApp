@@ -9,23 +9,18 @@ import Main from './pages/main'
 import Demo from './pages/demo'
 import MiningMonitor from './pages/minigMonitor'
 
-const ownLogger = (store) => (next) => (action)=>{
-  console.log("the following acction will be fired",action)
-  next(action)
-}
-
 const middleWare = applyMiddleware(thunk,logger)
 const store = createStore(Reducers,middleWare)
 
 class App extends Component {
   render() {
     return (
-      <Provider store={store}>
+      <Provider store={ store }>
         <BrowserRouter>
           <Switch>
-            <Route path="/" component={Main} exact/>
-            <Route path="/demo" component={Demo}/>
-            <Route path="/monitor" component={MiningMonitor}/>
+            <Route path = "/" component = { Main } exact/>
+            <Route path = "/demo" component = { Demo }/>
+            <Route path = "/monitor" component = { MiningMonitor }/>
           </Switch>
         </BrowserRouter>
       </Provider>

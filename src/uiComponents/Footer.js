@@ -1,7 +1,7 @@
 import React from 'react'
 import '../styles/footer.css'
 
-const Footer=()=>{
+const Footer = () => {
     return(
 
         <footer aria-label="social networks from coder" className="socialNetworks">

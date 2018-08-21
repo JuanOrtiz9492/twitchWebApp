@@ -1,48 +1,51 @@
 import axios from 'axios'
 import {sortListbyKey} from '../utilities/dataManipulation'
+import {urlAPI} from '../config'
 
 
-export function getAverageHashRate(wallet){
+export function getAverageHashRate ( wallet ) {
 
-    return (dispatch)=>{
-        return axios.get('https://api.nanopool.org/v1/eth/avghashrate/'+wallet)
-        .then((response)=>{
+    return ( dispatch ) => {
 
-            dispatch(updateHashOverDay(response.data.data))
-             
-        })
-    }
+            return axios.get( urlAPI+'/avghashrate/'+wallet )
 
-}
+                .then( ( response ) => {
 
-export function getMiningHistory(wallet){
-
-    return (dispatch)=>{
-        return axios.get('https://api.nanopool.org/v1/eth/history/'+wallet)
-        .then((response)=>{
-
-            dispatch(updateHashOverTime(response.data.data))
-             
-        })
-    }
-
+                    dispatch( updateHashOverDay ( response.data.data ) )
+                })
+            }   
 }
 
 
-export function getMiningPayments(wallet){
+export function getMiningHistory ( wallet ) {
 
-    return (dispatch)=>{
-        return axios.get('https://api.nanopool.org/v1/eth/payments/'+wallet)
-        .then((response)=>{
+    return ( dispatch ) => {
 
-            dispatch(updateMiningPayments(response.data.data))
-             
-        })
-    }
+        return axios.get( urlAPI+'/history/'+wallet )
 
+            .then( ( response ) => {
+
+            dispatch( updateHashOverTime( response.data.data ) )
+             })
+        }
 }
 
-export function getWalletInfo(wallet){
+
+export function getMiningPayments ( wallet ) {
+
+    return ( dispatch ) => {
+
+        return axios.get( urlAPI+'/payments/'+wallet )
+
+            .then( ( response ) => {
+
+                dispatch(updateMiningPayments(response.data.data))    
+            })
+        }
+}
+
+
+export function getWalletInfo ( wallet ){
 
         let details={
 
@@ -50,6 +53,7 @@ export function getWalletInfo(wallet){
             balance:0,
             hashRate:0
             }
+
         let errorDetails={
 
             status:true,
@@ -57,112 +61,120 @@ export function getWalletInfo(wallet){
 
         }
 
-        return(dispatch)=>{
+        return( dispatch ) => {
 
-            axios.get('https://api.nanopool.org/v1/eth/balance/'+wallet)
+            axios.get(urlAPI+'/balance/'+wallet)
+
                     .then((response)=>{
 
-                        details.balance=response.data.data
-                        errorDetails.status=response.data.status
-                        errorDetails.error=response.data.status?"":wallet==""?response.data.data:response.data.error
+                        const {data,status,error} = response.data
 
-                        axios.get('https://api.nanopool.org/v1/eth/avghashrate/'+wallet)
+                        details.balance = data
+                        errorDetails.status = status
+                        errorDetails.error = status ? "" : wallet == "" ? "No WALLET ADDRESS" : error
+
+                        axios.get(urlAPI+'/avghashrate/'+wallet)
+
                             .then((response)=>{
-                                details.hashRate=response.data.data.h1
-                                dispatch(updateWalletInfo(details))
-                                dispatch(updateErrorInfo(errorDetails))
-                            })
-                        })
-        }
 
+                                details.hashRate=response.data.data.h1
+                                
+                                dispatch( updateWalletInfo( details ) )
+                                dispatch( updateErrorInfo( errorDetails ) )
+
+                            })
+                    })
+        }
 }
 
-export function getWorkers(wallet){
 
-    return (dispatch)=>{
-        return axios.get('https://api.nanopool.org/v1/eth/workers/'+wallet)
-        .then((response)=>{
 
-            dispatch(updateworkers(response.data.data))
-             
+export function getWorkers ( wallet ) {
+
+    return ( dispatch ) => {
+
+        return axios.get( urlAPI+'/workers/'+wallet )
+
+            .then( ( response ) => {
+
+            dispatch(updateworkers(response.data.data))    
         })
     }
-
 }
 
 
-export function updateErrorInfo(details){
-
-    return{
-
-    type:"DATA_ERROR",
-    payload:{
-        status:details.status,
-        error:details.error
-    },
-
-    }
-
-}
-
-
-
-export function updateHashOverDay(details){
-
-    return{
-        type:"UPDATE_HASH_OVER_DAY",
-        payload:{hashOverDay:details}
-    }
-
-}
-
-export function updateHashOverTime(details){
-
-    sortListbyKey(details,"date")
+export function updateErrorInfo ( details ) {
 
     return {
 
-        type:"UPDATE_HASH_OVER_TIME",
-        payload:{hashOverTime:details}
+        type : "DATA_ERROR",
+        payload : {
 
-    }
-
-}
-
-export function updateMiningPayments(details){
-   
-    sortListbyKey(details,"date")
-
-    return{
-        type:"UPDATE_MINING_PAYMENTS",
-        payload:{miningPayments:details}
-    }
-
-}
-
-export function updateWalletInfo(details){
-
-    return{
-
-        type:"UPDATE_ADDRESS",
-        payload:{
-            address:details.address,
-            balance:details.balance,
-            hashRate:details.hashRate
+            status : details.status ,
+            error : details.error
         }
     }
 
 }
 
-export function updateworkers(details){
 
-    sortListbyKey(details,"lastShare")
+export function updateHashOverDay ( details ) {
 
-    return{
-        
-        type:"UPDATE_WORKERS",
-        payload:{workers:details}
+    return {
 
+        type : "UPDATE_HASH_OVER_DAY" ,
+        payload : { hashOverDay : details }
     }
-    
+}
+
+
+export function updateHashOverTime( details ) {
+
+    sortListbyKey( details , "date" )
+
+    return {
+
+        type : "UPDATE_HASH_OVER_TIME" ,
+        payload : { hashOverTime : details }
+    }
+}
+
+
+export function updateMiningPayments ( details ) {
+   
+    sortListbyKey ( details , "date" )
+
+    return {
+
+        type : "UPDATE_MINING_PAYMENTS" ,
+        payload : { miningPayments : details }
+    }
+
+}
+
+
+export function updateWalletInfo ( details ) {
+
+    return {
+
+        type : "UPDATE_ADDRESS" ,
+        payload : {
+
+            address : details.address ,
+            balance : details.balance ,
+            hashRate : details.hashRate
+        }
+    }
+}
+
+
+export function updateworkers ( details ) {
+
+    sortListbyKey( details , "lastShare" )
+
+    return {
+        
+        type : "UPDATE_WORKERS" ,
+        payload : { workers : details }
+    }
 }

@@ -6,40 +6,44 @@ class PaginationBar extends React.Component {
 constructor(props){
     super(props)
 
-    this.nextPage = this.nextPage.bind(this)
-    this.previousPage = this.previousPage.bind(this)
-
 }
 
-nextPage(){
+nextPage = () => {
 
     this.props.nextPage()
-
 }
-previousPage(){
+
+previousPage = () => {
 
     this.props.previousPage()
-
 }
 
 render(){
+
+    const { prevDisabled , pageIndex , nextDisabled } = this.props
 
     return( 
 
         <Pagination aria-label="Page navigation">
 
             <PaginationItem>
-                <PaginationLink previous onClick={this.previousPage} disabled={this.props.prevDisabled?"disabled":""}>
+
+                <PaginationLink previous onClick = { this.previousPage } disabled = { prevDisabled ? "disabled" : "" }>
                 </PaginationLink>
+
             </PaginationItem>
+
             <PaginationItem>
-                <PaginationLink disabled>
-                    {this.props.pageIndex}
-                </PaginationLink>
+
+                <PaginationLink disabled> {pageIndex} </PaginationLink>
+
             </PaginationItem>
+
             <PaginationItem>
-                <PaginationLink next onClick={this.nextPage} disabled={this.props.nextDisabled?"disable":""}>
+
+                <PaginationLink next onClick = { this.nextPage } disabled = { nextDisabled ? "disable" : "" }>
                 </PaginationLink>
+
             </PaginationItem>
 
         </Pagination>

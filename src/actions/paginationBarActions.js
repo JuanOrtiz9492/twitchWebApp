@@ -1,28 +1,23 @@
-export function nextPage(){
+export function nextPage () {
 
     return {
 
-        type: "INCREASE_INDEX"
-
-    }
-
-}
-
-export function previousPage(){
-
-    return{
-
-        type: "DECREASE_INDEX"
-
+        type : "INCREASE_INDEX"
     }
 }
 
-export function mainPage(){
+export function previousPage () {
 
     return{
 
-        type:"RESET_INDEX"
-
+        type : "DECREASE_INDEX"
     }
+}
 
+export function mainPage () {
+
+    return {
+
+        type : "RESET_INDEX"
+    }
 }

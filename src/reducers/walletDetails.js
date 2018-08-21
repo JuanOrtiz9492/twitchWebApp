@@ -1,5 +1,6 @@
-const initialState =[{
+const initialState = [
 
+    {
         accountBalance: 0,
         averageHashRate: 0,
         walletAddress: null,
@@ -12,29 +13,36 @@ const initialState =[{
 
     }
 ]
-const walletDetails =(state=initialState,action)=>{
-    switch(action.type)
-    {
+
+const walletDetails = ( state = initialState , action ) => {
+
+
+    switch(action.type) {
+
+
         case "UPDATE_ADDRESS":
 
         return [{
 
-            accountBalance: action.payload.balance,
-            averageHashRate:action.payload.hashRate,
-            walletAddress: action.payload.address
-        }].concat(initialState.slice(1))
+            accountBalance : action.payload.balance,
+            averageHashRate :action.payload.hashRate,
+            walletAddress : action.payload.address
+
+        }].concat( state.slice(1) )
 
         case "DATA_ERROR":
         
-        return state.slice(0,1).concat([{
+        return state.slice(0,1).concat(
+            [{
 
-            status:action.payload.status,
-            error:action.payload.error,
+            status :action.payload.status,
+            error :action.payload.error,
 
-        }])
+            }])
 
-        default:
+        default :
         return state
+        
     }
 }
 

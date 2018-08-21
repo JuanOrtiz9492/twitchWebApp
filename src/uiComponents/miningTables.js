@@ -8,28 +8,25 @@ import * as pageNavigation from '../actions/paginationBarActions'
 
 class MiningTables extends React.Component{
 
-    constructor(props){
-        super(props)
-
-        this.getDataTable = this.getDataTable.bind(this)
+    constructor( props ){
+        super( props )
     }
 
- getDataTable=(data)=>{
+ getDataTable = (data) =>{
 
-    let returnData=undefined
+    let returnData = undefined
 
     const dataStore = {
 
-        "mining":()=>([this.props.miningHistory.hashOverDay]),
-        "history":()=>(this.props.miningHistory.hashOverTime),
-        "workers":()=>(this.props.workersList[0].workersList),
-        "payments":()=>(this.props.miningHistory.miningPayments)
+        "mining" : () => ([this.props.miningHistory.hashOverDay]),
+        "history" : () => (this.props.miningHistory.hashOverTime),
+        "workers" : () => (this.props.workersList[0].workersList),
+        "payments" : () => (this.props.miningHistory.miningPayments)
     }
 
     if (dataStore[data]) {
 
-        returnData=dataStore[data]()
-
+        returnData = dataStore [data] ()
     }
 
     return returnData
@@ -37,21 +34,22 @@ class MiningTables extends React.Component{
 }
 render(){
 
-    let dataList=this.getDataTable(this.props.view)
-    let pageIndex=this.props.pagination.paginationBarIndex
-    let ItemsOnList = 5
-    let totalPages = pages(dataList,ItemsOnList)
+    const { view , pagination , nextPage , previousPage } = this.props
+    const dataList = this.getDataTable ( view )
+    const pageIndex = pagination.paginationBarIndex
+    const ItemsOnList = 5
+    const totalPages = pages(dataList,ItemsOnList)
 
     return(
             <React.Fragment>
 
-                <DateTable data={listSlicer(dataList,ItemsOnList,pageIndex)}/>
+                <DateTable data = { listSlicer ( dataList , ItemsOnList , pageIndex ) }/>
 
-                <PaginationBar  nextPage={this.props.nextPage} 
-                                previousPage={this.props.previousPage} 
-                                pageIndex={pageIndex+1}
-                                prevDisabled={pageIndex==0?true:false}
-                                nextDisabled={pageIndex+1==totalPages?true:false} />
+                <PaginationBar  nextPage = { nextPage } 
+                                previousPage = { previousPage } 
+                                pageIndex = { pageIndex+1 }
+                                prevDisabled = { pageIndex == 0 ? true : false }
+                                nextDisabled = { pageIndex+1 == totalPages ? true : false }/>
 
             </React.Fragment>
 
@@ -59,14 +57,14 @@ render(){
     }
 }
 
-const mapStateToProps=(state)=>{
+const mapStateToProps = ( state ) => {
 
     return {
-        walletDetails:state.walletDetails,
-        miningHistory:state.miningHistoryReducer,
-        workersList:state.workersReducer,
-        pagination:state.paginationReducer
+        walletDetails : state.walletDetails,
+        miningHistory : state.miningHistoryReducer,
+        workersList : state.workersReducer,
+        pagination : state.paginationReducer
     }
 }
 
-export default connect(mapStateToProps,pageNavigation)(MiningTables)
+export default connect( mapStateToProps , pageNavigation ) ( MiningTables )

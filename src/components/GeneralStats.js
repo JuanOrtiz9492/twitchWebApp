@@ -1,70 +1,65 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import * as actions from '../actions'
-import {Nav,NavLink} from 'reactstrap'
+import { Nav , NavLink } from 'reactstrap'
 import MiningTables from '../uiComponents/miningTables'
-import NoWalletAddress from '../uiComponents/noWalletAddress'
+import WarningMesage from '../uiComponents/warningMesage'
 import '../styles/generalStats.css'
 class GeneralStats extends React.Component{
 
-    constructor(props){
-        super(props)
-        this.state={
-            newPropAvailable:false,
-            walletDir:undefined,
-            queryCall:undefined,
-        }
+    constructor( props ) {
+        super( props )
+        this.state = {
 
-        this.newView = this.newView.bind(this)
-        this.fetchData=this.fetchData.bind(this)
+            newPropAvailable : false,
+            walletDir : undefined,
+            queryCall : undefined,
+        }
     }
 
-    static getDerivedStateFromProps(nextProps, PrevState){
+    static getDerivedStateFromProps( nextProps , PrevState ) {
 
-        let returnState={newPropAvailable:false}
+        let returnState = { newPropAvailable : false }
 
-        if (nextProps.walletAddress !== PrevState.walletDir) {
+        if ( nextProps.walletAddress !== PrevState.walletDir ) {
 
-            returnState={
-                walletDir:nextProps.walletAddress,
-                newPropAvailable:true
+            returnState = {
+                walletDir : nextProps.walletAddress,
+                newPropAvailable : true
             }
-
         }
-        else if (nextProps.query !== PrevState.queryCall) {
+        else if ( nextProps.query !== PrevState.queryCall ) {
 
-            returnState ={
-                queryCall: nextProps.query,
-                newPropAvailable: true
+            returnState = {
+                queryCall : nextProps.query,
+                newPropAvailable : true
             }
-
         }
 
       return returnState
-
     }
 
-    fetchData(query){
+    fetchData = ( query ) => {
+
+        let walletAddress = this.props.walletAddress
 
         const queryCalls={
 
-            "avghashrate":  ()=>(this.props.getAverageHashRate(this.props.walletAddress)),
-            "history":      ()=>(this.props.getMiningHistory(this.props.walletAddress)),
-            "workers":      ()=>(this.props.getWorkers(this.props.walletAddress)),
-            "payments":     ()=>(this.props.getMiningPayments(this.props.walletAddress)),
+            "avghashrate" :  () => ( this.props.getAverageHashRate ( walletAddress ) ),
+            "history" :      () => ( this.props.getMiningHistory ( walletAddress ) ),
+            "workers" :      () => ( this.props.getWorkers ( walletAddress ) ),
+            "payments" :     () => ( this.props.getMiningPayments ( walletAddress ) ),
 
         }
 
-        if(queryCalls[query]){
+        if( queryCalls [ query ] ){
 
-            return queryCalls[query]()
-
+            return queryCalls [ query ]()
         }
-
-        
 }
 
-    newView(index){
+
+    newView = ( index )=> {
         
         Array.from(document.getElementsByClassName('viewSelector')).forEach((tab)=>{
             tab.classList.remove('selectedTab')
@@ -75,44 +70,44 @@ class GeneralStats extends React.Component{
         this.props.updateCurrentView(index)
     }
 
+
 componentDidUpdate(){
 
-    if(this.state.newPropAvailable){
+    if( this.state.newPropAvailable ) {
 
-        this.fetchData(this.props.query)
-
+        this.fetchData( this.props.query )
     }
-
 }
 
 
 componentDidMount(){
     
-    this.fetchData(this.props.query)
-    document.getElementsByClassName('viewSelector')[0].classList.add('selectedTab')
+    this.fetchData( this.props.query )
+    document.getElementsByClassName( 'viewSelector' )[0].classList.add( 'selectedTab' )
 
 }
 
     render(){
-        console.log(this.props.walletDetails[1])
+        const { status , error } = this.props.walletDetails[1]
         return(
             <div className="infoContainer">
                 <Nav tabs role="navigation">
                 {this.props.views.map((view,index)=>
                     <NavLink className="viewSelector" key={view} onClick={()=>this.newView(index)}>{view}</NavLink> )}
                 </Nav>
-                {this.props.walletDetails[1].status?<MiningTables view={this.props.typeOfView}/>:<NoWalletAddress warning={this.props.walletDetails[1].error}/>}
+                { status ? <MiningTables view={ this.props.typeOfView }/> : <WarningMesage warning={ error } /> }
             </div>
         )
     }
 
 }
 
-const mapStateToProps = (state)=>{
+const mapStateToProps = ( state ) => {
 
     return{
-        walletDetails:state.walletDetails,
-        miningHistory:state.miningHistoryReducer
+        
+        walletDetails : state.walletDetails,
+        miningHistory : state.miningHistoryReducer
     }
 
 }
